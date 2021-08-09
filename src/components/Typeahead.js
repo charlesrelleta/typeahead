@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const GITHUB_API = "https://api.github.com/users";
 
 const Typeahead = ({ u }) => {
-  let [text, setText] = useState("");
   let [searchText, setSearchText] = useState("");
   let [suggestions, setSuggestions] = useState([]);
 
-  const SuggestionSelected = (name) => {
-    console.log("asdasds");
-    // setText(name);
-    // setSuggestions([]);
+  const SuggestionSelected = (url) => {
+    window.location.href = url;
   };
 
   const fetchData = async (word) => {
@@ -38,7 +35,10 @@ const Typeahead = ({ u }) => {
           }}
         >
           {suggestions.map((user) => (
-            <div key={user.id} onClick={(e) => SuggestionSelected(user.login)}>
+            <div
+              key={user.id}
+              onClick={(e) => SuggestionSelected(user.html_url)}
+            >
               <div
                 style={{
                   flexDirection: "row",
